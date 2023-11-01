@@ -3,7 +3,8 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
-
+import SearchResults from './pages/SearchResults';
+// {/* This is a public route, but should only be accessible after a user searches a hotel */}
 import Header from './components/Header';
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
                 <Routes>
                     {/* Public routes available when user is not logged in */}
                     <Route exact path='/' element={<HomePage />} />
+
+                    <Route path='/search-results' element={<SearchResults />} />
                 </Routes>
             </BrowserRouter>
         </div>
