@@ -8,21 +8,21 @@ from django.db import connection
 # create global cursor
 cursor = connection.cursor()
 
+
 class HotelSearchView(APIView):
     def post(self, request):
-        print("hello")
-        # Handle form data here
+
         search_query = request.data.get('search_query')  # Assuming the form field is named 'search_query'
 
-        # Perform your search logic here
-        print("hello", type(search_query))
-
+        # perform search logic here
         cursor.execute(
             "SELECT "
-                "H.hotel_name, "
-                "H.hotel_city, "
-                "H.hotel_state, "
-                "AVG(R.RATING) AS AVERAGE_RATING "
+                "H.HOTEL_NAME, "
+                "H.HOTEL_CITY, "
+                "H.HOTEL_STATE, "
+                "AVG(R.RATING) AS AVERAGE_RATING, "
+                "H.hotel_name LIKE %s AS IS_LIKE_SEARCH_NAME, "
+                "H.hotel_city LIKE %s AS IS_LIKE_SEARCH_CITY "
             "FROM "
                 "Hotels H "
             "LEFT JOIN "
@@ -35,15 +35,13 @@ class HotelSearchView(APIView):
                 "H.hotel_name LIKE %s "
                 "OR H.hotel_city LIKE %s "
             "GROUP BY H.HOTEL_ID, H.hotel_name, H.hotel_city, H.hotel_state ",
-            ['%' + search_query + '%', '%' + search_query + '%']
+            ['%' + search_query + '%', '%' + search_query + '%', '%' + search_query + '%', '%' + search_query + '%']
         )
-
 
         results = cursor.fetchall()
 
-        query_column_names = ["hotel_name", "hotel_location", "hotel_state", "rating"]
+        query_column_names = ["HOTEL_NAME", "HOTEL_CITY", "HOTEL_STATE", "RATING", "IS_LIKE_SEARCH_NAME", "IS_LIKE_SEARCH_CITY"]
 
         zipped_results = [dict(zip(query_column_names, row)) for row in results]
 
-        print(zipped_results)
         return Response(zipped_results)

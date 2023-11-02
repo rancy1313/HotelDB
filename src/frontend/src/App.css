@@ -1,1 +1,15 @@
+/* following css is for formatting the buttons on the search results component */
+#search-buttons-div {
+    padding: 25px 20px;
+}
+#search-buttons-div * {
+    margin: 10px;
+}
 
+/* gonna be the base css for all component headers */
+.component-headers {
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}

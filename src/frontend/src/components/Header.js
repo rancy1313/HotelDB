@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Button, Container, Form, Navbar, Nav } from 'react-bootstrap';
 
@@ -11,23 +11,25 @@ const Header = () => {
     const [form, setForm] = useState({'search_field_value': ''});
 
     async function submitSearchData() {
-        console.log("hello", form);
+
         const response = await fetch("http://127.0.0.1:8000/api/hotel-search/", {
                                          method: "POST",
                                          headers: {
                                             'Content-Type': 'application/json'
                                         },
-                                        body: JSON.stringify({ 'search_query': form })})
+                                        body: JSON.stringify({ 'search_query': form.search_field_value })})
 
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
+
+            // reset search field
+            setForm({ search_field_value: '' });
 
             // Redirect to the results page with the search results
             navigate('/search-results', { state: { searchResults: data } });
+
         } else {
-            // Handle errors
             console.log('handle this error')
         }
 
@@ -60,8 +62,8 @@ const Header = () => {
                         <Form className="d-flex">
                             <Form.Control
                                 placeholder="Search Hotels"
-                                value={form.search_field_text}
-                                onChange={(e) => setForm(e.target.value)}
+                                value={form.search_field_value}
+                                onChange={(e) => setForm({ search_field_value: e.target.value })}
                             ></Form.Control>
                             <Button
                                 variant="success"
