@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { Button, Container, Form, Navbar, Nav } from 'react-bootstrap';
 

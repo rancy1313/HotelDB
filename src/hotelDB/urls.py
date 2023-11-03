@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('', TemplateView.as_view(template_name='index.html')),
     path('search-results/', TemplateView.as_view(template_name='index.html')),
+    path('view-hotel/<int:HOTEL_ID>/', TemplateView.as_view(template_name='index.html')),
     path('hotel-search/', TemplateView.as_view(template_name='index.html')),
 ]

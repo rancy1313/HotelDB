@@ -1,12 +1,14 @@
 import HomePage from './HomePage';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Container, Card, Button } from 'react-bootstrap';
 
 import { useState, useEffect } from 'react';
 
 const SearchResults = () => {
+
+    let navigate = useNavigate();
 
     // used to fetch the search results and display them on this component
     const location = useLocation();
@@ -17,7 +19,12 @@ const SearchResults = () => {
     // everytime there is a new search we set to search by all to view all the results
     useEffect(() => {
         setSearchBy("All");
-    }, [searchResults])
+    }, [searchResults]);
+
+    function viewHotel(HOTEL_ID) {
+        console.log(HOTEL_ID);
+        navigate(`view-hotel/${HOTEL_ID}`);
+    }
 
     return (
         <Container>
@@ -46,7 +53,10 @@ const SearchResults = () => {
                                     <Card.Body>
                                         <Card.Title>{result.HOTEL_NAME}</Card.Title>
                                         <Card.Text>Location: {result.HOTEL_CITY}, {result.HOTEL_STATE}. Rating: {Math.round(result.RATING * 10) / 10}</Card.Text>
-                                        <Button variant="info">More Info</Button>
+                                        <Button
+                                            variant="info"
+                                            onClick={(e) => viewHotel(result.HOTEL_ID)}
+                                        >More Info</Button>
                                     </Card.Body>
                                 </Card>
                             ) : searchBy === "Name" && result.IS_LIKE_SEARCH_NAME === 1 ? (
@@ -54,7 +64,9 @@ const SearchResults = () => {
                                     <Card.Body>
                                         <Card.Title>{result.HOTEL_NAME}</Card.Title>
                                         <Card.Text>Location: {result.HOTEL_CITY}, {result.HOTEL_STATE}. Rating: {Math.round(result.RATING * 10) / 10}</Card.Text>
-                                        <Button variant="info">More Info</Button>
+                                        <Button
+                                            variant="info"
+                                        >More Info</Button>
                                     </Card.Body>
                                 </Card>
                             ) : searchBy === "City" && result.IS_LIKE_SEARCH_CITY === 1 ? (
@@ -62,7 +74,9 @@ const SearchResults = () => {
                                     <Card.Body>
                                         <Card.Title>{result.HOTEL_NAME}</Card.Title>
                                         <Card.Text>Location: {result.HOTEL_CITY}, {result.HOTEL_STATE}. Rating: {Math.round(result.RATING * 10) / 10}</Card.Text>
-                                        <Button variant="info">More Info</Button>
+                                        <Button
+                                            variant="info"
+                                        >More Info</Button>
                                     </Card.Body>
                                 </Card>
                             ) : null
