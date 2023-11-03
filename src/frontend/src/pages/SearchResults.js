@@ -22,13 +22,12 @@ const SearchResults = () => {
     }, [searchResults]);
 
     function viewHotel(HOTEL_ID) {
-        console.log(HOTEL_ID);
         navigate(`view-hotel/${HOTEL_ID}`);
     }
 
     return (
         <Container>
-            <h1 className="component-headers">Results</h1>
+            <h1 className="component-headers">Results Found: { searchResults.length }</h1>
 
             <div id="search-buttons-div">
                 <Button
@@ -45,37 +44,51 @@ const SearchResults = () => {
                 >City</Button>
             </div>
             <ul>
-                {searchResults.map((result, index) => (
+                {searchResults.map((hotel, index) => (
                     <div key={ index }>
                         {
                             searchBy === "All" ? (
                                 <Card style={{ width: '22rem'}}>
                                     <Card.Body>
-                                        <Card.Title>{result.HOTEL_NAME}</Card.Title>
-                                        <Card.Text>Location: {result.HOTEL_CITY}, {result.HOTEL_STATE}. Rating: {Math.round(result.RATING * 10) / 10}</Card.Text>
+                                        <Card.Title>{hotel.HOTEL_NAME}</Card.Title>
+                                        <Card.Subtitle className="mb-2 text-muted">
+                                            {hotel.HOTEL_ADDRESS} {hotel.HOTEL_CITY}, {hotel.HOTEL_STATE} {hotel.HOTEL_ZIP}
+                                        </Card.Subtitle>
+                                        <Card.Text>Rating: {Math.round(hotel.RATING * 10) / 10}</Card.Text>
+                                        <Card.Text>Phone: {hotel.HOTEL_PHONE_NUMBER}</Card.Text>
                                         <Button
                                             variant="info"
-                                            onClick={(e) => viewHotel(result.HOTEL_ID)}
+                                            onClick={(e) => viewHotel(hotel.HOTEL_ID)}
                                         >More Info</Button>
                                     </Card.Body>
                                 </Card>
-                            ) : searchBy === "Name" && result.IS_LIKE_SEARCH_NAME === 1 ? (
+                            ) : searchBy === "Name" && hotel.IS_LIKE_SEARCH_NAME === 1 ? (
                                 <Card style={{ width: '22rem'}}>
                                     <Card.Body>
-                                        <Card.Title>{result.HOTEL_NAME}</Card.Title>
-                                        <Card.Text>Location: {result.HOTEL_CITY}, {result.HOTEL_STATE}. Rating: {Math.round(result.RATING * 10) / 10}</Card.Text>
+                                        <Card.Title>{hotel.HOTEL_NAME}</Card.Title>
+                                        <Card.Subtitle className="mb-2 text-muted">
+                                            {hotel.HOTEL_ADDRESS} {hotel.HOTEL_CITY}, {hotel.HOTEL_STATE} {hotel.HOTEL_ZIP}
+                                        </Card.Subtitle>
+                                        <Card.Text>Rating: {Math.round(hotel.RATING * 10) / 10}</Card.Text>
+                                        <Card.Text>Phone: {hotel.HOTEL_PHONE_NUMBER}</Card.Text>
                                         <Button
                                             variant="info"
+                                            onClick={(e) => viewHotel(hotel.HOTEL_ID)}
                                         >More Info</Button>
                                     </Card.Body>
                                 </Card>
-                            ) : searchBy === "City" && result.IS_LIKE_SEARCH_CITY === 1 ? (
+                            ) : searchBy === "City" && hotel.IS_LIKE_SEARCH_CITY === 1 ? (
                                 <Card style={{ width: '22rem'}}>
                                     <Card.Body>
-                                        <Card.Title>{result.HOTEL_NAME}</Card.Title>
-                                        <Card.Text>Location: {result.HOTEL_CITY}, {result.HOTEL_STATE}. Rating: {Math.round(result.RATING * 10) / 10}</Card.Text>
+                                        <Card.Title>{hotel.HOTEL_NAME}</Card.Title>
+                                        <Card.Subtitle className="mb-2 text-muted">
+                                            {hotel.HOTEL_ADDRESS} {hotel.HOTEL_CITY}, {hotel.HOTEL_STATE} {hotel.HOTEL_ZIP}
+                                        </Card.Subtitle>
+                                        <Card.Text>Rating: {Math.round(hotel.RATING * 10) / 10}</Card.Text>
+                                        <Card.Text>Phone: {hotel.HOTEL_PHONE_NUMBER}</Card.Text>
                                         <Button
                                             variant="info"
+                                            onClick={(e) => viewHotel(hotel.HOTEL_ID)}
                                         >More Info</Button>
                                     </Card.Body>
                                 </Card>

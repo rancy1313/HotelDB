@@ -21,8 +21,11 @@ class HotelSearchView(APIView):
                 "SELECT "
                     "H.HOTEL_ID, "
                     "H.HOTEL_NAME, "
+                    "H.HOTEL_ADDRESS, "
                     "H.HOTEL_CITY, "
                     "H.HOTEL_STATE, "
+                    "H.HOTEL_ZIP, "
+                    "H.HOTEL_PHONE_NUMBER, "
                     "AVG(R.RATING) AS AVERAGE_RATING, "
                     "H.hotel_name LIKE %s AS IS_LIKE_SEARCH_NAME, "
                     "H.hotel_city LIKE %s AS IS_LIKE_SEARCH_CITY "
@@ -44,9 +47,11 @@ class HotelSearchView(APIView):
             results = cursor.fetchall()
 
         # prepare data to return to front end
-        query_column_names = ["HOTEL_ID", "HOTEL_NAME", "HOTEL_CITY", "HOTEL_STATE", "RATING", "IS_LIKE_SEARCH_NAME",
-                              "IS_LIKE_SEARCH_CITY"]
+        query_column_names = ["HOTEL_ID", "HOTEL_NAME", "HOTEL_ADDRESS", "HOTEL_CITY", "HOTEL_STATE", "HOTEL_ZIP",
+                              "HOTEL_PHONE_NUMBER", "RATING", "IS_LIKE_SEARCH_NAME", "IS_LIKE_SEARCH_CITY"]
         zipped_results = [dict(zip(query_column_names, row)) for row in results]
+
+        print(zipped_results)
 
         return Response(zipped_results)
 

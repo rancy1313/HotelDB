@@ -28,7 +28,7 @@ const ViewHotel = () => {
     // fetch hotel info on render
     useEffect(() => {
         fetchHotelInfo();
-    }, [])
+    }, [HOTEL_ID])
 
     return (
         <Container>

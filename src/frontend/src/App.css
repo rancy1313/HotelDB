@@ -13,3 +13,29 @@
     margin-top: 20px;
     text-align: center;
 }
+
+.close-matches {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  width: auto;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1;
+  border: 1px solid #ccc;
+}
+
+.close-matches li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.close-matches li:hover {
+  background-color: #f0f0f0;
+}
+
+
