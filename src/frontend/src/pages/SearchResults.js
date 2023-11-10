@@ -48,7 +48,7 @@ const SearchResults = () => {
                     <div key={ index }>
                         {
                             searchBy === "All" ? (
-                                <Card style={{ width: '22rem'}}>
+                                <Card style={{ width: '30rem'}}>
                                     <Card.Body>
                                         <Card.Title>{hotel.HOTEL_NAME}</Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted">
@@ -63,7 +63,7 @@ const SearchResults = () => {
                                     </Card.Body>
                                 </Card>
                             ) : searchBy === "Name" && hotel.IS_LIKE_SEARCH_NAME === 1 ? (
-                                <Card style={{ width: '22rem'}}>
+                                <Card style={{ width: '30rem'}}>
                                     <Card.Body>
                                         <Card.Title>{hotel.HOTEL_NAME}</Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted">
@@ -78,7 +78,7 @@ const SearchResults = () => {
                                     </Card.Body>
                                 </Card>
                             ) : searchBy === "City" && hotel.IS_LIKE_SEARCH_CITY === 1 ? (
-                                <Card style={{ width: '22rem'}}>
+                                <Card style={{ width: '30rem'}}>
                                     <Card.Body>
                                         <Card.Title>{hotel.HOTEL_NAME}</Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted">

@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
 
-import { Button, Container, Form, Navbar, Nav, Card } from 'react-bootstrap';
+import { Button, Container, Form, Navbar, Nav } from 'react-bootstrap';
 
 const Header = () => {
 
@@ -13,6 +13,10 @@ const Header = () => {
     const [closeMatches, setCloseMatches] = useState([]);
 
     async function submitSearchData() {
+
+        // if the search field is empty then break out of the function
+        if (form.search_field_value === '')
+            return;
 
         const response = await fetch("http://127.0.0.1:8000/api/hotel-search/", {
                                          method: "POST",
@@ -27,6 +31,9 @@ const Header = () => {
 
             // reset search field
             setForm({ search_field_value: '' });
+
+            // reset close matches
+            setCloseMatches([]);
 
             // Redirect to the results page with the search results
             navigate('/search-results', { state: { searchResults: data } });
@@ -61,7 +68,7 @@ const Header = () => {
 
             // top five hotels are just the first ones to match the value pattern
             const top_five_hotels = data.splice(0, 5);
-            console.log(top_five_hotels);
+
             setCloseMatches(top_five_hotels);
 
         } else {

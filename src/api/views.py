@@ -11,7 +11,7 @@ from django.db import connection
 class HotelSearchView(APIView):
     def post(self, request):
         # get search text from user
-        search_query = request.data.get('search_query')
+        search_query = request.data.get("search_query")
 
         # query relevant cols based on hotel name and city. Uses multiple sub queries
         # bc tha rating is calculated from the Reviews table, but we need to know which rooms belong
@@ -59,7 +59,7 @@ class HotelSearchView(APIView):
 class HotelInfoView(APIView):
     def post(self, request):
         # get id of hotel user is trying to view details of
-        search_query = request.data.get('search_query')
+        search_query = request.data.get("search_query")
 
         # query relevant cols for that specific hotel by id
         with connection.cursor() as cursor:
@@ -73,3 +73,17 @@ class HotelInfoView(APIView):
         zipped_results = dict(zip(query_column_names, results))
 
         return Response(zipped_results)
+
+
+class FetchCitiesView(APIView):
+    def post(self, request):
+        search_query = request.data.get("search_query")
+
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT HOTEL_CITY FROM Hotels WHERE HOTEL_CITY LIKE %s", ['%' + search_query + '%'])
+            results = cursor.fetchall()
+
+        print(results)
+
+        return Response(results)
+
